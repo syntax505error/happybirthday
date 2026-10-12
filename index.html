@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Happy Birthday Lovee</title>
+  
+  <!-- Google Fonts: Dancing Script (Headings) & Poppins (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Floating Sparkles / Stars Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Main App Shell -->
+  <div class="app-container">
+    <!-- Top Progress Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <span class="header-subtitle">There is special messages and a little something for you</span>
+        <div class="stage-stepper" id="stage-stepper">
+          <span class="step-dot active" data-step="1" title="Stage 1"></span>
+          <span class="step-dot" data-step="2" title="Stage 2"></span>
+          <span class="step-dot" data-step="3" title="Stage 3"></span>
+          <span class="step-dot" data-step="4" title="Stage 4"></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- STAGES WRAPPER -->
+    <main class="stages-wrapper">
+
+      <!-- ============================================================ -->
+      <!-- STAGE 1: CATCH GAME -->
+      <!-- ============================================================ -->
+      <section class="stage active" id="stage-1" aria-label="Catch Game">
+        <div class="stage-card catch-card">
+          <div class="stage-pill-group">
+            <div class="pill counter-pill" id="catch-counter-pill">
+              <span class="pill-icon">✨</span>
+              <span id="catch-counter-text">Catches: 0 / 15</span>
+            </div>
+            <div class="instruction-pill">
+              DRAG BASKET TO CATCH ME!
+            </div>
+          </div>
+
+          <!-- Interactive Catch Canvas / Playfield -->
+          <div class="catch-arena" id="catch-arena">
+            <!-- Falling Items will be dynamically spawned here -->
+            <div class="catch-items-layer" id="catch-items-layer"></div>
+
+            <!-- Basket Element -->
+            <div class="basket" id="basket" role="slider" aria-label="Catch Basket" tabindex="0">
+              <div class="basket-bow">🎀</div>
+              <div class="basket-body">
+                <div class="basket-weave"></div>
+              </div>
+            </div>
+
+            <!-- Floating Tap-to-Start or Help Prompt -->
+            <div class="catch-hint" id="catch-hint">
+              <span> Slide basket left &amp; right</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- STAGE 2: WORD SEARCH LOVE LETTER -->
+      <!-- ============================================================ -->
+      <section class="stage" id="stage-2" aria-label="Word Search Love Letter">
+        <div class="stage-card word-search-card">
+          <!-- Top Counter Pill -->
+          <div class="stage-pill-group">
+            <div class="pill counter-pill" id="words-counter-pill">
+              <span class="pill-icon">🔍</span>
+              <span id="words-counter-text">Words found: 0 / 8</span>
+            </div>
+          </div>
+
+          <!-- Heartfelt Love Letter Paragraph -->
+          <div class="love-letter-box">
+            <h2 class="letter-heading" id="wordsearch-letter-title">Hey there's a message for you!</h2>
+            <div class="love-letter-content" id="wordsearch-letter-body">
+              <!-- Dynamically populated from CONFIG with highlighted target words -->
+            </div>
+          </div>
+
+          <!-- Word Search Grid Section -->
+          <div class="grid-section">
+            <p class="grid-caption">(Swipe the letters below to find the bold words!)</p>
+            
+            <!-- 10x10 Word Grid Container -->
+            <div class="word-grid-container" id="word-grid-container">
+              <div class="word-grid" id="word-grid">
+                <!-- 100 cells generated via JavaScript -->
+              </div>
+              <!-- Selection overlay line / indicator -->
+              <svg class="grid-selection-svg" id="grid-selection-svg"></svg>
+            </div>
+
+            <!-- Found words pill tag list -->
+            <div class="found-tags-container" id="found-tags-container">
+              <!-- Dynamically rendered word chips -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Success Modal for Stage 2 -->
+        <div class="modal-backdrop" id="stage2-modal" aria-hidden="true">
+          <div class="modal-card">
+            <div class="modal-icon">🎉</div>
+            <h3 class="modal-title" id="stage2-modal-title">Perfect! Great job ian finding all the words!</h3>
+            <p class="modal-body" id="stage2-modal-msg">Something special is waiting on the next page.</p>
+            <button class="btn btn-primary" id="stage2-next-btn">
+              Unlock Next Page 
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- STAGE 3: PIN LOCK -->
+      <!-- ============================================================ -->
+      <section class="stage" id="stage-3" aria-label="PIN Lock">
+        <div class="stage-card pin-card" id="pin-card-box">
+          <div class="pin-header">
+            <div class="lock-icon-badge">🔒</div>
+            <h2 class="pin-title" id="pin-title-text">Enter PIN</h2>
+            <p class="pin-subtitle" id="pin-subtitle-text">Unlock our journey</p>
+          </div>
+
+          <!-- 6 Heart-shaped dots indicator -->
+          <div class="pin-hearts-row" id="pin-hearts-row" aria-label="PIN entry status">
+            <div class="heart-dot" data-index="0">
+              <svg viewBox="0 0 24 24" class="heart-svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="heart-dot" data-index="1">
+              <svg viewBox="0 0 24 24" class="heart-svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="heart-dot" data-index="2">
+              <svg viewBox="0 0 24 24" class="heart-svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="heart-dot" data-index="3">
+              <svg viewBox="0 0 24 24" class="heart-svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="heart-dot" data-index="4">
+              <svg viewBox="0 0 24 24" class="heart-svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="heart-dot" data-index="5">
+              <svg viewBox="0 0 24 24" class="heart-svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+          </div>
+
+          <!-- Hint Line -->
+          <div class="pin-hint-box">
+            <span class="hint-icon">💡</span>
+            <span class="hint-text" id="pin-hint-text">Clue: Our first meet</span>
+          </div>
+
+          <div class="pin-feedback-msg" id="pin-feedback-msg"></div>
+
+          <!-- Numeric Keypad -->
+          <div class="keypad" id="keypad">
+            <button class="key-btn" data-key="1">1</button>
+            <button class="key-btn" data-key="2">2</button>
+            <button class="key-btn" data-key="3">3</button>
+            <button class="key-btn" data-key="4">4</button>
+            <button class="key-btn" data-key="5">5</button>
+            <button class="key-btn" data-key="6">6</button>
+            <button class="key-btn" data-key="7">7</button>
+            <button class="key-btn" data-key="8">8</button>
+            <button class="key-btn" data-key="9">9</button>
+            <button class="key-btn key-action" id="key-clear" title="Clear">C</button>
+            <button class="key-btn" data-key="0">0</button>
+            <button class="key-btn key-action" id="key-backspace" title="Delete">⌫</button>
+          </div>
+
+          <!-- Unlock Action Button -->
+          <button class="btn btn-primary pin-unlock-btn" id="pin-unlock-btn">
+            Unlock
+          </button>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- STAGE 4: MEMORIES GALLERY & FINAL LETTER -->
+      <!-- ============================================================ -->
+      <section class="stage" id="stage-4" aria-label="Memories Gallery">
+        <div class="memories-container">
+          <header class="memories-header">
+            <h1 class="memories-title" id="memories-title">this is where our journey began.</h1>
+            <p class="memories-subtitle">A collection of moments I hold close to my heart</p>
+          </header>
+
+          <!-- Polaroid-style Photo Gallery -->
+          <div class="polaroid-gallery" id="polaroid-gallery">
+            <!-- Dynamically populated from CONFIG.memories.photos -->
+          </div>
+
+          <!-- Bottom Envelope Button Section -->
+          <div class="envelope-section">
+            <button class="envelope-btn" id="open-letter-btn">
+              <span class="envelope-icon">💌</span>
+              <span class="envelope-text" id="envelope-button-label">Open Birthday Letter</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Full-Screen Birthday Letter Modal -->
+        <div class="modal-backdrop letter-modal-backdrop" id="letter-modal" aria-hidden="true">
+          <div class="letter-modal-card">
+            <button class="modal-close-btn" id="close-letter-btn" aria-label="Close letter">✕</button>
+            
+            <div class="letter-paper">
+              <div class="letter-stamp">🎂💙</div>
+              <h2 class="letter-salutation" id="letter-salutation">My Dearest Caspian Reid,</h2>
+              
+              <div class="letter-body-paragraphs" id="letter-paragraphs">
+                <!-- Dynamically populated from CONFIG.finalLetter -->
+              </div>
+
+              <div class="letter-closing" id="letter-closing">With all my love, forever &amp; always,</div>
+              <div class="letter-signature" id="letter-birthday-wish">Happy Birthday, sayang! 💙✨</div>
+
+              <button class="btn btn-secondary letter-confetti-btn" id="reburst-confetti-btn">
+                🎉 Burst More Confetti!
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Confetti Canvas for Grand Finale -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
