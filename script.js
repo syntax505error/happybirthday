@@ -15,7 +15,7 @@ const CONFIG = {
   // --------------------------------------------------------------------------
   catchGame: {
     targetCatches: 15, // Number of items to catch to win
-    avatarSrc: "assets/photos/avatar.jpg", // Path to his cute cutout avatar
+    avatarSrc: "avatar.jpg", // Path to his cute cutout avatar
     bubbleText: "catch me!", // Text in the floating speech bubble
     spawnIntervalMs: 1150, // How often items drop (milliseconds)
     fallSpeedMin: 2.4, // Minimum falling speed (px per frame)
@@ -63,29 +63,29 @@ const CONFIG = {
     gallerySubtitle: "Every single chapter with you is my favorite",
     photos: [
       {
-        src: "assets/photos/photo1.jpg",
+        src: "photo1.jpg",
         caption: "Where it all began — our very first date in Paris ",
         date: "05/06/2026"
       },
       {
-        src: "assets/photos/photo2.jpg ",
+        src: "photo2.jpg",
         caption: "Our Family Photoshoot",
       },
       {
-        src: "assets/photos/photo3.jpg",
+        src: "photo3.jpg",
         caption: "Happy Birthday ibok, from your beloved Miller, Abang, dan Adek",
       },
       {
-        src: "assets/photos/photo4.jpg",
+        src: "photo4.jpg",
         caption: "That day we walked in the park at night 🤍",
       },
       {
-        src: "assets/photos/photo5.jpg  ",
+        src: "photo5.jpg",
         caption: "Were together and talk a lot about nothing, but feel warm and happy inside",
       },
       {
-        src: "assets/photos/photo6.jpg",
-        caption: "Evrery single day with you is my favorite, and I can’t wait to make more memories together.",
+        src: "photo6.jpg",
+        caption: "Every single day with you is my favorite, and I can’t wait to make more memories together.",
         date: "Today & Always"
       }
     ],
@@ -226,9 +226,9 @@ document.querySelectorAll('.step-dot').forEach(dot => {
     }
     ctx.lineTo(cx, cy - outerRadius);
     ctx.closePath();
-    ctx.fillStyle = `rgba(186, 230, 253, ${alpha})`;
+    ctx.fillStyle = `rgba(251, 207, 224, ${alpha})`;
     ctx.shadowBlur = 6;
-    ctx.shadowColor = 'rgba(56, 189, 248, 0.4)';
+    ctx.shadowColor = 'rgba(244, 114, 182, 0.4)';
     ctx.fill();
     ctx.restore();
   }
@@ -255,7 +255,7 @@ document.querySelectorAll('.step-dot').forEach(dot => {
       } else {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(224, 242, 254, ${currentAlpha})`;
+        ctx.fillStyle = `rgba(255, 228, 238, ${currentAlpha})`;
         ctx.fill();
       }
     });
@@ -288,9 +288,9 @@ const Confetti = (function () {
   resize();
 
   const colors = [
-    '#38bdf8', // baby blue
-    '#7dd3fc', // sky blue
-    '#0284c7', // royal baby blue
+    '#f48fb8', // soft pink
+    '#f9b4cf', // light pink
+    '#d6457f', // deep rose
     '#f472b6', // pastel pink
     '#fbbf24', // pastel gold
     '#c084fc', // pastel purple
@@ -443,7 +443,7 @@ const Confetti = (function () {
     itemEl.innerHTML = `
       <div class="falling-speech-bubble">${CONFIG.catchGame.bubbleText}</div>
       <div class="falling-avatar-circle">
-        <img src="${CONFIG.catchGame.avatarSrc}" alt="${CONFIG.boyfriendName}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><circle cx=\\'50\\' cy=\\'50\\' r=\\'50\\' fill=\\'%23bae6fd\\'/><text x=\\'50\\' y=\\'58\\' font-size=\\'36\\' text-anchor=\\'middle\\'>💙</text></svg>'">
+        <img src="${CONFIG.catchGame.avatarSrc}" alt="${CONFIG.boyfriendName}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><circle cx=\\'50\\' cy=\\'50\\' r=\\'50\\' fill=\\'%23fbcfe0\\'/><text x=\\'50\\' y=\\'58\\' font-size=\\'36\\' text-anchor=\\'middle\\'>💗</text></svg>'">
       </div>
     `;
 
@@ -1012,8 +1012,8 @@ const Confetti = (function () {
       });
 
       if (feedbackMsg) {
-        feedbackMsg.style.color = '#0284c7';
-        feedbackMsg.textContent = 'Unlocked! 💙';
+        feedbackMsg.style.color = '#d6457f';
+        feedbackMsg.textContent = 'Unlocked! 💗';
       }
 
       setTimeout(() => {
@@ -1153,9 +1153,12 @@ function initMemoriesObserver() {
     const rot = rotations[idx % rotations.length];
     card.style.setProperty('--rotation', `${rot}deg`);
 
+    // .trim() removes accidental spaces in file names (e.g. "photo2.jpg ")
+    const photoSrc = String(photo.src).trim();
+
     card.innerHTML = `
       <div class="polaroid-img-wrapper">
-        <img src="${photo.src}" alt="${photo.caption}" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 360\\'><rect width=\\'400\\' height=\\'360\\' fill=\\'%23bae6fd\\'/><text x=\\'200\\' y=\\'180\\' font-family=\\'sans-serif\\' font-size=\\'24\\' text-anchor=\\'middle\\' fill=\\'%230284c7\\'>Our Sweet Memory 💙</text></svg>'">
+        <img src="${photoSrc}" alt="${photo.caption}" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 360\\'><rect width=\\'400\\' height=\\'360\\' fill=\\'%23fbcfe0\\'/><text x=\\'200\\' y=\\'180\\' font-family=\\'sans-serif\\' font-size=\\'24\\' text-anchor=\\'middle\\' fill=\\'%23d6457f\\'>Our Sweet Memory 💗</text></svg>'">
       </div>
       <div class="polaroid-caption-area">
         <p class="polaroid-caption">${photo.caption}</p>
